@@ -7,7 +7,7 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.WindowsAzure.Storage.Table;
 using Newtonsoft.Json;
-using System.Net.Http.Formatting;
+using System.Text;
 
 namespace ReblMonitorApp
 {
@@ -32,8 +32,13 @@ namespace ReblMonitorApp
                     ,
                     When = res.When
                 };
-            var jsonEvents = JsonConvert.SerializeObject(events);
-            return req.CreateResponse(HttpStatusCode.OK, jsonEvents);
+
+            var jsonToReturn = JsonConvert.SerializeObject(events);
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(jsonToReturn, Encoding.UTF8, "application/json")
+            };
+
         }
     }
 }

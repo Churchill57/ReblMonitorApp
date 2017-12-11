@@ -33,7 +33,7 @@ namespace ReblMonitorApp
                     When = res.When
                 };
             var jsonEvents = JsonConvert.SerializeObject(events);
-            return req.CreateResponse(HttpStatusCode.OK, jsonEvents, JsonMediaTypeFormatter.DefaultMediaType);
+            return req.CreateResponse(HttpStatusCode.OK, jsonEvents);
         }
     }
 }
